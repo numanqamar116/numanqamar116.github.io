@@ -884,10 +884,23 @@
                     <div class="footer-top-wrapper text-center">
                         <div class="row">
                             <div class="col-12">
-                                <form action="#" class="footer-newsletter">
-                                    <input type="email" placeholder="demo@example.com">
-                                    <button class="submit-btn" type="submit">Subscribe Now</button>
+                                <form id="newsletterForm" class="footer-newsletter">
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        placeholder="Enter your email" 
+                                        required 
+                                        style="padding: 10px; width: 300px; margin: 10px auto;"
+                                    >
+                                    <button 
+                                        class="submit-btn" 
+                                        type="submit" 
+                                        style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;"
+                                    >
+                                        Subscribe Now
+                                    </button>
                                 </form>
+                                <p id="responseMessage" style="margin-top: 10px; color: green; display: none;">Thank you for subscribing!</p>
                             </div>
                         </div>
                     </div>
@@ -901,7 +914,7 @@
                             <div class="footer-single-info">
                                 <a href="tel:+0123456789" class="info-box">
                                     <span class="icon"><i class="icofont-phone"></i></span>
-                                    <span class="text">0123456789</span>
+                                    <span class="text">+923069761224</span>
                                 </a>
                             </div>
                             <!-- Start Single Footer Info -->
@@ -911,7 +924,7 @@
                             <div class="footer-single-info">
                                 <a href="mailto:demo@example.com" class="info-box">
                                     <span class="icon"><i class="icofont-envelope-open"></i></span>
-                                    <span class="text">demo@example.com</span>
+                                    <span class="text">numanqamar16@gmail.com</span>
                                 </a>
                             </div>
                             <!-- Start Single Footer Info -->
@@ -947,7 +960,7 @@
                         <div class="col-auto">
                             <a href="index.html" class="footer-logo">
                                 <div class="logo">
-                                    <img src="assets/images/logo/my-logo.png" alt="My Portfolio Logo">
+                                    <img src="assets/images/logo/logo.png" alt="Numan Qamar Logo">
                                 </div>
                             </a>
                         </div>
@@ -963,6 +976,40 @@
     </main>
 
     <!-- Global Vendor, plugins JS -->
+    <script>
+     document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent form submission
+        const email = document.getElementById('email').value;
+        const responseMessage = document.getElementById('responseMessage');
+
+        try {
+            // Use your Web App URL here
+            const response = await fetch('https://script.google.com/macros/s/AKfycbxKPcJoLk2dFefqnq5U8HiiS71ccP_VCkDb0SuqgYAKpLCpqPC6CjfPOMenRH-OOZps9g/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+                responseMessage.textContent = 'Thank you for subscribing!';
+                responseMessage.style.display = 'block';
+                responseMessage.style.color = 'green';
+            } else {
+                responseMessage.textContent = 'Something went wrong. Please try again.';
+                responseMessage.style.display = 'block';
+                responseMessage.style.color = 'red';
+            }
+        } catch (error) {
+            responseMessage.textContent = 'Failed to subscribe. Please check your connection.';
+            responseMessage.style.display = 'block';
+            responseMessage.style.color = 'red';
+        }
+
+        // Clear the email input
+        document.getElementById('email').value = '';
+    });
+    </script>
+
 
     <!-- JS Files
     ============================================ -->
